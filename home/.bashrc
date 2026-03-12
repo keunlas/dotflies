@@ -28,6 +28,9 @@ alias gitblog='git log --graph --pretty=oneline --abbrev-commit'
 # Docker
 # alias dk='docker'
 
+# CMake
+export CMAKE_GENERATOR=Ninja
+
 # Go
 export GOPROXY=https://goproxy.io,direct
 export GOSUMDB=sum.golang.google.cn
