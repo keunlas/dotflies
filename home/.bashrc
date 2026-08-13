@@ -48,17 +48,4 @@ alias memcheck='valgrind --tool=memcheck --leak-check=full --show-reachable=yes'
 # PS1='\[\e[32;1m\][\u@\h \W]\$ \[\e[0m\]'
 export PS1="\[\e[31m\][\[\e[m\]\[\e[36m\]\u\[\e[m\]\[\e[31m\]@\[\e[m\]\[\e[36m\]\h\[\e[m\] \[\e[32m\]\w\[\e[m\]\[\e[31m\]]\[\e[m\]\[\e[35m\]\\$ \[\e[0m\]"
 
-# Copilot-CLI (公共配置，不含敏感信息)
-export COPILOT_PROVIDER_TYPE=anthropic
-export COPILOT_PROVIDER_BASE_URL=https://api.deepseek.com/anthropic
-export COPILOT_MODEL=deepseek-v4-pro
-export COPILOT_PROVIDER_MAX_PROMPT_TOKENS=840000
-export COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=128000
-export COPILOT_OFFLINE=true
-
-# Copilot-CLI (敏感信息，需手动创建 ~/.copilot-secrets）
-# export COPILOT_PROVIDER_API_KEY=xxxxxxxxxxxxxxx
-if [ -f ~/.copilot-secrets ]; then
-    source ~/.copilot-secrets
-fi
 
