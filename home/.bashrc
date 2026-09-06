@@ -8,25 +8,18 @@
 # I love vim!
 export EDITOR='vim'
 
-# Some PATH is necessory!
-# export PATH=$PATH:/usr/games:/usr/local/games
-
 # It makes my life convenient!
+alias ..='cd ../'
+alias ...='cd ../../'
+alias grep='grep --color=auto'
 alias free='free -h'
 alias df='df -h'
 alias ls='ls --color=auto'
 alias l='ls -lh'
 alias ll='ls -lah'
 alias la='ls -a'
-alias ..='cd ../'
-alias ...='cd ../../'
-alias grep='grep --color=auto'
 
-alias mihomolog='journalctl -u mihomo -o cat -f'
 alias gitblog='git log --graph --pretty=oneline --abbrev-commit'
-
-# Docker
-# alias dk='docker'
 
 # CMake
 export CMAKE_GENERATOR=Ninja
@@ -36,16 +29,22 @@ export GOPROXY=https://goproxy.io,direct
 export GOSUMDB=sum.golang.google.cn
 export PATH=$PATH:$HOME/go/bin
 
-# 华硕严选
+# ASUS Arch Guide
 # https://asus-linux.org/guides/arch-guide/
 alias swilau='switcherooctl launch'
 
-# 内存泄漏检测工具
-# pacman -S valgrind
+# Valgrind
 alias memcheck='valgrind --tool=memcheck --leak-check=full --show-reachable=yes'
 
+# Import more config from ~/.config/my-bash/
+# For private stuff that won't be committed to Internet
+if [ -d "$HOME/.config/my-bash" ]; then
+    for f in "$HOME/.config/my-bash/"*.bash; do
+        [ -r "$f" ] && source "$f"
+    done
+    unset f
+fi
+
 # Just make bash simple.
-# PS1='\[\e[32;1m\][\u@\h \W]\$ \[\e[0m\]'
+# Default PS1='\[\e[32;1m\][\u@\h \W]\$ \[\e[0m\]' is not pretty
 export PS1="\[\e[31m\][\[\e[m\]\[\e[36m\]\u\[\e[m\]\[\e[31m\]@\[\e[m\]\[\e[36m\]\h\[\e[m\] \[\e[32m\]\w\[\e[m\]\[\e[31m\]]\[\e[m\]\[\e[35m\]\\$ \[\e[0m\]"
-
-

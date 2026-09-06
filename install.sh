@@ -1,54 +1,44 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
+#
+#
 
-# Remember.
-# This repo "dotfiles"
-# must be put in directory "~".
+set -euo pipefail
 
-echo ""
-echo "===== Start link ====="
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# ============ link files ============
+debug() { echo "[DEBUG] $@"; }
+info() { echo "[INFO] $@"; }
+warn() { echo "[WARN] $@"; }
 
-# .bashrc
-echo "Creating links to ~/.bashrc"
-ln -sf ~/dotfiles/home/.bashrc ~/.bashrc
+link_file() {
+  info "Linking file \"$1\" to \"$2/$(basename $1)\""
 
-# git
-echo "Creating links to ~/.gitconfig"
-ln -sf ~/dotfiles/home/.gitconfig ~/.gitconfig
+  if [ -e "$2/$(basename $1)" ]; then
+    warn "Existed \"$2/$(basename $1)\" has been overwrite"
+  fi
 
-# .vimrc
-echo "Creating links to ~/.vimrc"
-ln -sf ~/dotfiles/home/.vimrc ~/.vimrc
+  ln -sf "$1" "$2"
+}
 
-# .npmrc
-echo "Creating links to ~/.npmrc"
-ln -sf ~/dotfiles/home/.npmrc ~/.npmrc
+link_dir() {
+  info "Linking dir \"$1\" to \"$2/$(basename $1)\""
 
-# ============ link directory ============
+  if [ -e "$2/$(basename $1)" ]; then
+    warn "Existed \"$2/$(basename $1)\" has been overwrite"
+  fi
 
-# fastfetch
-echo "Creating links to ~/.config/fastfetch"
-rm -rf ~/.config/fastfetch
-ln -sf ~/dotfiles/home/.config/fastfetch ~/.config/
+  rm -rf "$2/$(basename $1)"
+  ln -sf "$1" "$2"
+}
 
-# kitty
-echo "Creating links to ~/.config/kitty"
-rm -rf ~/.config/kitty
-ln -sf ~/dotfiles/home/.config/kitty ~/.config/
+info "The directory of dotfiles is \"$DOTFILES_DIR\""
 
-# wofi
-echo "Creating links to ~/.config/wofi"
-rm -rf ~/.config/wofi
-ln -sf ~/dotfiles/home/.config/wofi ~/.config/
+link_file "$DOTFILES_DIR/home/.bashrc"        "$HOME"
+link_file "$DOTFILES_DIR/home/.vimrc"         "$HOME"
+link_file "$DOTFILES_DIR/home/.gitconfig"     "$HOME"
 
-# pip
-echo "Creating links to ~/.config/pip"
-rm -rf ~/.config/pip
-ln -sf ~/dotfiles/home/.config/pip ~/.config/
+link_dir "$DOTFILES_DIR/home/.config/my-bash"       "$HOME/.config"
+link_dir "$DOTFILES_DIR/home/.config/fastfetch"     "$HOME/.config"
+link_dir "$DOTFILES_DIR/home/.config/kitty"         "$HOME/.config"
+link_dir "$DOTFILES_DIR/home/.config/pip"           "$HOME/.config"
 
-echo "===== All Done ====="
-echo ""
-
-echo "This repo should be put in $HOME path."
-echo "Check repo's path if install.sh is not work."
