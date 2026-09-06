@@ -1,3 +1,2 @@
-# copilot-cli secrets
-.copilot-secrets
-copilot-secrets
+/home/.config/my-bash/**/*
+!.gitkeep
